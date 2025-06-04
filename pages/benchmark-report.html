@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benchmark Detailed Report - Web Prototype Mockup</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/Chart.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    body {
+      font-family: 'Fira Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .report-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .report-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .report-header-left h2 {
+      color: #4A4A4A;
+      font-size: 24px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .report-header-left .date {
+      color: #9B9B9B;
+      font-size: 14px;
+    }
+    
+    .report-actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .report-section {
+      margin-bottom: 32px;
+    }
+    
+    .report-section h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #4A4A4A;
+      font-weight: 500;
+      border-bottom: 1px solid #F0F0F0;
+      padding-bottom: 8px;
+    }
+    
+    .report-intro {
+      background-color: #F8F8F8;
+      border-left: 4px solid #4A90E2;
+      padding: 16px;
+      margin-bottom: 24px;
+      border-radius: 0 4px 4px 0;
+    }
+    
+    .report-intro p {
+      margin: 0;
+      color: #4A4A4A;
+      line-height: 1.6;
+    }
+    
+    .report-highlight {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .highlight-card {
+      flex: 1;
+      min-width: 200px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .highlight-card h4 {
+      font-size: 14px;
+      color: #9B9B9B;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+    
+    .highlight-card .value {
+      font-size: 24px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .highlight-card.positive {
+      border-top: 3px solid #7ED321;
+    }
+    
+    .highlight-card.negative {
+      border-top: 3px solid #D0021B;
+    }
+    
+    .highlight-card.neutral {
+      border-top: 3px solid #4A90E2;
+    }
+    
+    .highlight-card .trend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    
+    .highlight-card .trend.up {
+      color: #7ED321;
+    }
+    
+    .highlight-card .trend.down {
+      color: #D0021B;
+    }
+    
+    .chart-container {
+      margin-bottom: 24px;
+      height: 250px;
+      position: relative;
+    }
+    
+    .chart-wrapper {
+      background-color: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      height: 250px;
+    }
+    
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    @media (max-width: 768px) {
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .insight-card {
+      background-color: #F8F8F8;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .insight-card h4 {
+      color: #4A90E2;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .insight-card p {
+      margin: 0;
+      color: #4A4A4A;
+      line-height: 1.6;
+    }
+    
+    .company-color {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    
+    .company-color.your-company {
+      background-color: #4A90E2;
+    }
+    
+    .company-color.company-1 {
+      background-color: #50E3C2;
+    }
+    
+    .company-color.company-2 {
+      background-color: #F5A623;
+    }
+    
+    .company-color.company-3 {
+      background-color: #7ED321;
+    }
+    
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #4A4A4A;
+    }
+    
+    .recommendation-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F0F0F0;
+    }
+    
+    .recommendation-item:last-child {
+      border-bottom: none;
+    }
+    
+    .recommendation-icon {
+      width: 32px;
+      height: 32px;
+      background-color: #F8F8F8;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4A90E2;
+      flex-shrink: 0;
+    }
+    
+    .recommendation-content h4 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #4A4A4A;
+      font-weight: 500;
+    }
+    
+    .recommendation-content p {
+      margin: 0;
+      color: #4A4A4A;
+      line-height: 1.6;
+    }
+    
+    .chart-wrapper h4 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="main-header-logo">
+        <a href="landingpage.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+          <img src="../images/wk-logo.svg" alt="Wolters Kluwer Logo">
+          <span class="main-header-title">Ownity</span>
+        </a>
+      </div>
+      
+      <div class="main-header-actions">
+        <button class="btn btn-icon" aria-label="Help">
+          <i class="fas fa-question"></i>
+        </button>
+        <div class="notification-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <button class="btn btn-icon menu-grid" aria-label="Menu">
+          <i class="fas fa-th"></i>
+        </button>
+        <div class="user-profile">
+          <div class="user-info">
+            <span class="user-name">Hilary Ouse</span>
+            <span class="user-company">Fisch & Wurst</span>
+          </div>
+          <div class="user-avatar">HO</div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="content-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <nav class="sidebar-menu">
+          <a href="../index.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </div>
+          </a>
+          <a href="benchmark.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item active">
+              <i class="fas fa-chart-bar"></i>
+              <span>Benchmark</span>
+            </div>
+          </a>
+          <a href="company-setup.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item">
+              <i class="fas fa-building"></i>
+              <span>Company Setup</span>
+            </div>
+          </a>
+          <a href="boardroom.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item">
+              <i class="fas fa-briefcase"></i>
+              <span>Boardroom</span>
+            </div>
+          </a>
+          <div class="sidebar-menu-item-with-submenu">
+            <a href="compliance.html" style="text-decoration: none; color: inherit; display: block;">
+              <div style="display: flex; align-items: center;">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Compliance</span>
+              </div>
+            </a>
+            <i class="fas fa-chevron-down chevron"></i>
+            <div class="sidebar-submenu">
+              <a href="compliance-legal.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Legal & Permits</span>
+                </div>
+              </a>
+              <a href="compliance-operations.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Operations & Facility</span>
+                </div>
+              </a>
+              <a href="compliance-staff.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Staff & Management</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <a href="shareholders.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item">
+              <i class="fas fa-users"></i>
+              <span>Shareholders</span>
+            </div>
+          </a>
+          <a href="trademark.html" style="text-decoration: none; color: inherit;">
+            <div class="sidebar-menu-item">
+              <i class="fas fa-trademark"></i>
+              <span>Trademark & Patents</span>
+            </div>
+          </a>
+          <div class="sidebar-menu-item-with-submenu">
+            <a href="my-sphere.html" style="text-decoration: none; color: inherit; display: block;">
+              <div style="display: flex; align-items: center;">
+                <i class="fas fa-globe"></i>
+                <span>My Sphere</span>
+              </div>
+            </a>
+            <i class="fas fa-chevron-down chevron"></i>
+            <div class="sidebar-submenu">
+              <a href="fisch-wurst.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Fisch & Wurst</span>
+                </div>
+              </a>
+              <a href="creek-stream.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Creek & Stream</span>
+                </div>
+              </a>
+              <a href="cork-screw.html" style="text-decoration: none; color: inherit;">
+                <div class="sidebar-submenu-item">
+                  <span>Cork & Screw</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </aside>
+      
+      <!-- Main Content -->
+      <main class="content-wrapper">
+        <!-- Detailed Report Card -->
+        <div class="card" style="max-width: 1000px; margin: 0 auto;">
+          <div class="card-tag">AI ANALYSIS REPORT</div>
+          
+          <!-- Report Header -->
+          <div class="report-header">
+            <div class="report-header-left">
+              <h2>Benchmark Detailed Analysis Report</h2>
+              <div class="date">Generated on May 15, 2025 • Based on "Fish Restaurants" search results</div>
+            </div>
+            <div class="report-actions">
+              <button class="btn btn-secondary"><i class="fas fa-download"></i> Export PDF</button>
+              <button class="btn btn-secondary"><i class="fas fa-share"></i> Share</button>
+            </div>
+          </div>
+          
+          <!-- Executive Summary -->
+          <div class="report-section">
+            <h3>Executive Summary</h3>
+            <div class="report-intro">
+              <p>This AI-generated analysis compares Fisch & Wurst with three specialized fish restaurants in your industry. Based on the financial data and market trends, your business shows competitive positioning but has opportunities for improvement in profit margins and operational efficiency compared to these specialized fish restaurants.</p>
+            </div>
+            
+            <div class="report-highlight">
+              <div class="highlight-card neutral">
+                <h4>Your Revenue</h4>
+                <div class="value">$1.24M</div>
+                <div class="trend">Position: Lower than fish restaurant avg.</div>
+              </div>
+              
+              <div class="highlight-card negative">
+                <h4>Profit Margin</h4>
+                <div class="value">18.47%</div>
+                <div class="trend down"><i class="fas fa-arrow-down"></i> 4.20% below fish restaurant avg.</div>
+              </div>
+              
+              <div class="highlight-card positive">
+                <h4>Growth Potential</h4>
+                <div class="value">Very High</div>
+                <div class="trend up"><i class="fas fa-arrow-up"></i> Based on specialization</div>
+              </div>
+              
+              <div class="highlight-card neutral">
+                <h4>Overall Rating</h4>
+                <div class="value">B</div>
+                <div class="trend">Room for specialization</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Company Comparison Section with Charts -->
+          <div class="report-section">
+            <h3>Fish Restaurant Comparison</h3>
+            
+            <div class="legend">
+              <div class="legend-item">
+                <span class="company-color your-company"></span>
+                Fisch & Wurst
+              </div>
+              <div class="legend-item">
+                <span class="company-color company-1"></span>
+                Salt & Sea
+              </div>
+              <div class="legend-item">
+                <span class="company-color company-2"></span>
+                Ocean Plate
+              </div>
+              <div class="legend-item">
+                <span class="company-color company-3"></span>
+                Maritime Catch
+              </div>
+            </div>
+            
+            <div class="chart-grid">
+              <div class="chart-wrapper">
+                <h4 style="margin-top: 0; margin-bottom: 16px;">Revenue Comparison</h4>
+                <canvas id="revenueChart"></canvas>
+              </div>
+              
+              <div class="chart-wrapper">
+                <h4 style="margin-top: 0; margin-bottom: 16px;">Profit Margin Comparison</h4>
+                <canvas id="profitMarginChart"></canvas>
+              </div>
+              
+              <div class="chart-wrapper">
+                <h4 style="margin-top: 0; margin-bottom: 16px;">ROE Comparison</h4>
+                <canvas id="roeChart"></canvas>
+              </div>
+              
+              <div class="chart-wrapper">
+                <h4 style="margin-top: 0; margin-bottom: 16px;">Debt/Equity Ratio</h4>
+                <canvas id="debtEquityChart"></canvas>
+              </div>
+            </div>
+            
+            <div class="insight-card">
+              <h4>Key Insight: Specialization Impact</h4>
+              <p>Fish restaurants like Maritime Catch ($2.05M revenue) are generating significantly higher revenue than your general restaurant. Their specialized focus on seafood appears to drive both higher profit margins (23.24% vs your 18.47%) and customer spending. This suggests an opportunity to increase your seafood menu offerings or create a specialized section in your restaurant.</p>
+            </div>
+          </div>
+          
+          <!-- Detailed Analysis -->
+          <div class="report-section">
+            <h3>Detailed Analysis by Metrics</h3>
+            
+            <div class="insight-card">
+              <h4>Revenue Analysis</h4>
+              <p>Your current revenue of $1.24M positions you significantly below the fish restaurant average of $1.87M. All three specialized fish restaurants outperform your revenue, with Maritime Catch leading at $2.05M. This revenue gap is consistent with industry trends where specialized dining experiences command higher prices and attract more frequent visits.</p>
+            </div>
+            
+            <div class="insight-card">
+              <h4>EBITDA Evaluation</h4>
+              <p>Your EBITDA of $319,847 is considerably lower than fish restaurant leaders like Maritime Catch ($519,633). The specialized fish restaurants average $481,468 in EBITDA, indicating they're able to charge premium prices for seafood while maintaining strong operational efficiency despite typically higher ingredient costs.</p>
+            </div>
+            
+            <div class="insight-card">
+              <h4>Profit Margin Assessment</h4>
+              <p>At 18.47%, your profit margin falls well below the fish restaurant average of 22.54%. Salt & Sea (22.54%), Ocean Plate (21.83%), and Maritime Catch (23.24%) all achieve stronger margins despite typically facing higher food costs for fresh seafood. This suggests they have stronger pricing power and potentially better supply chain relationships.</p>
+            </div>
+            
+            <div class="insight-card">
+              <h4>Financial Health Indicators</h4>
+              <p>Your debt-to-equity ratio (0.453) is higher than the fish restaurant average (0.356). All three specialized restaurants maintain better debt positions, with Maritime Catch leading at 0.324. Their stronger liquidity positions (average current ratio of 2.33 vs. your 1.823) give them more flexibility for expansion and weathering market volatility.</p>
+            </div>
+          </div>
+          
+          <!-- Recommendations -->
+          <div class="report-section">
+            <h3>Strategic Recommendations</h3>
+            
+            <div class="recommendation-item">
+              <div class="recommendation-icon">
+                <i class="fas fa-fish"></i>
+              </div>
+              <div class="recommendation-content">
+                <h4>Menu Specialization</h4>
+                <p>Create a dedicated seafood section in your menu or introduce seafood-focused days/promotions to test market response. Fish restaurants are achieving 22-23% margins despite higher ingredient costs, indicating strong customer willingness to pay premium prices for quality seafood offerings.</p>
+              </div>
+            </div>
+            
+            <div class="recommendation-item">
+              <div class="recommendation-icon">
+                <i class="fas fa-truck"></i>
+              </div>
+              <div class="recommendation-content">
+                <h4>Supply Chain Optimization</h4>
+                <p>Explore direct relationships with seafood suppliers to reduce costs. Fish restaurants maintain better margins despite higher ingredient costs, suggesting better supplier relationships or buying practices. This could reduce your food costs by an estimated 8-12%.</p>
+              </div>
+            </div>
+            
+            <div class="recommendation-item">
+              <div class="recommendation-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="recommendation-content">
+                <h4>Premium Positioning Strategy</h4>
+                <p>Analyze the pricing strategies of successful fish restaurants and implement a tiered pricing approach for your seafood offerings. Data shows customers are willing to pay 15-20% more for specialized seafood dishes compared to general menu items.</p>
+              </div>
+            </div>
+            
+            <div class="recommendation-item">
+              <div class="recommendation-icon">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <div class="recommendation-content">
+                <h4>Branding Refinement</h4>
+                <p>Despite your name "Fisch & Wurst," customer perception may not strongly associate your restaurant with premium seafood. Consider a targeted marketing campaign emphasizing your seafood expertise and quality to better capture the higher-margin customer segment already frequenting specialized fish restaurants.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Report Footer Actions -->
+          <div class="card-footer" style="display: flex; align-items: center;">
+            <a href="benchmark.html" class="btn btn-secondary" style="margin-right: 16px;"><i class="fas fa-arrow-left"></i> Back to Benchmark</a>
+            <button class="btn btn-primary"><i class="fas fa-calendar"></i> Schedule Strategy Meeting</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Scripts -->
+  <script src="../components/card.js"></script>
+  <script src="../js/main.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Chart configuration
+      const companyLabels = ['Fisch & Wurst', 'Salt & Sea', 'Ocean Plate', 'Maritime Catch'];
+      const chartColors = ['#4A90E2', '#50E3C2', '#F5A623', '#7ED321'];
+      
+      // Revenue Chart
+      const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+      const revenueChart = new Chart(revenueCtx, {
+        type: 'bar',
+        data: {
+          labels: companyLabels,
+          datasets: [{
+            label: 'Revenue (in millions $)',
+            data: [1.24, 1.85, 1.72, 2.05],
+            backgroundColor: chartColors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Revenue ($ Millions)'
+              }
+            }
+          }
+        }
+      });
+      
+      // Profit Margin Chart
+      const profitMarginCtx = document.getElementById('profitMarginChart').getContext('2d');
+      const profitMarginChart = new Chart(profitMarginCtx, {
+        type: 'bar',
+        data: {
+          labels: companyLabels,
+          datasets: [{
+            label: 'Profit Margin (%)',
+            data: [18.47, 22.54, 21.83, 23.24],
+            backgroundColor: chartColors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Profit Margin (%)'
+              }
+            }
+          }
+        }
+      });
+      
+      // ROE Chart
+      const roeCtx = document.getElementById('roeChart').getContext('2d');
+      const roeChart = new Chart(roeCtx, {
+        type: 'bar',
+        data: {
+          labels: companyLabels,
+          datasets: [{
+            label: 'Return on Equity (%)',
+            data: [22.34, 28.32, 26.94, 29.47],
+            backgroundColor: chartColors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'ROE (%)'
+              }
+            }
+          }
+        }
+      });
+      
+      // Debt/Equity Chart
+      const debtEquityCtx = document.getElementById('debtEquityChart').getContext('2d');
+      const debtEquityChart = new Chart(debtEquityCtx, {
+        type: 'bar',
+        data: {
+          labels: companyLabels,
+          datasets: [{
+            label: 'Debt/Equity Ratio',
+            data: [0.453, 0.347, 0.398, 0.324],
+            backgroundColor: chartColors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Debt/Equity Ratio'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

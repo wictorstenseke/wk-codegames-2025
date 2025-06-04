@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ownity - Everything for business owners</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fira Sans', sans-serif;
+            line-height: 1.5;
+            color: #4A4A4A;
+            background-color: #fff;
+            background-image: 
+                linear-gradient(rgba(248, 248, 248, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(248, 248, 248, 0.8) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background-color: #fff;
+            border-bottom: 1px solid #F8F8F8;
+        }
+        
+        .logo {
+            height: 56px;
+            width: 56px;
+        }
+        
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #4A4A4A;
+            font-weight: 500;
+        }
+        
+        .button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 16px;
+        }
+        
+        .button-secondary {
+            background-color: #F8F8F8;
+            color: #4A4A4A;
+            border: 1px solid #E0E0E0;
+        }
+        
+        .button-primary {
+            background-color: #4A4A4A;
+            color: white;
+        }
+        
+        /* Hero section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 64px 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .hero-subtitle {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        /* Features section */
+        .features-intro {
+            max-width: 800px;
+            margin: 64px auto 32px;
+            padding: 0 32px;
+            text-align: center;
+        }
+        
+        .features-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .features-description {
+            color: #9B9B9B;
+            font-size: 16px;
+        }
+        
+        .features-grid {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px;
+            gap: 32px;
+        }
+        
+        .feature-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 50%;
+            font-size: 12px;
+            line-height: 1;
+            position: relative;
+            top: 1px;
+        }
+        
+        .feature-icon img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .feature-description {
+            font-size: 16px;
+            color: #9B9B9B;
+        }
+        
+        /* Included/excluded icons for normal plans */
+        .feature-icon.included {
+            color: white;
+            background-color: #7ED321;
+        }
+        
+        .feature-icon.excluded {
+            color: white;
+            background-color: #D0021B;
+        }
+        
+        /* Pro plan uses green checkmarks */
+        .pricing-right .pricing-plan:not(.featured) .feature-icon.included {
+            color: white;
+            background-color: #7ED321;
+        }
+        
+        /* Plus plan (featured) uses white checkmarks on blue background */
+        .featured .feature-icon.included {
+            color: #4A90E2;
+            background-color: white;
+        }
+        
+        .featured .feature-icon.excluded {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: #4A90E2;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 22px;
+        }
+        
+        .plan-subtitle {
+            font-size: 14px;
+            color: #9B9B9B;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        /* Conclusion section */
+        .conclusion {
+            text-align: center;
+            max-width: 1200px;
+            margin: 64px auto;
+            padding: 64px 32px;
+            background-color: #f8f8f8;
+        }
+        
+        .conclusion-text {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Tools Showcase Section */
+        .tools-showcase {
+            max-width: 1200px;
+            margin: 64px auto;
+            padding: 32px;
+            background-color: #fff;
+        }
+        
+        .tools-intro {
+            text-align: left;
+            margin-bottom: 32px;
+            max-width: 800px;
+        }
+        
+        .tools-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+        }
+        
+        .tools-subtitle {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .tool-card {
+            flex: 0 0 calc(33.333% - 22px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+        
+        .tool-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4A4A4A;
+        }
+        
+        .tool-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #4A4A4A;
+        }
+        
+        .tool-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        
+        .tool-description {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #9B9B9B;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        label {
+            font-weight: 500;
+        }
+        
+        input {
+            padding: 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 16px;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .form-button {
+            margin-top: 16px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .features-grid {
+                flex-direction: column;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .hero-subtitle {
+                font-size: 24px;
+            }
+            
+            .conclusion-text {
+                font-size: 24px;
+            }
+            
+            .pricing-layout {
+                flex-direction: column;
+            }
+            
+            .pricing-left, .pricing-right {
+                width: 100%;
+            }
+            
+            .pricing-right {
+                flex-direction: column;
+            }
+            
+            .pricing-plan {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 24px;
+            }
+            
+            .tools-grid {
+                flex-direction: column;
+            }
+            
+            .tool-card {
+                flex: 0 0 100%;
+            }
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background-color: #f8f8f8;
+            padding: 64px 32px;
+            margin: 32px auto;
+            max-width: 1200px;
+        }
+        
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .pricing-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #4A4A4A;
+        }
+        
+        .pricing-title span {
+            background: linear-gradient(to right, #007AC3 37%, #55CBFB 71%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            display: inline-block;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 32px auto;
+            gap: 16px;
+        }
+        
+        .toggle-option {
+            font-weight: 500;
+            color: #4A4A4A;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #4A90E2;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        .save-tag {
+            display: flex;
+            align-items: center;
+            color: #4A90E2;
+            font-weight: 600;
+        }
+        
+        .save-tag img {
+            margin-right: 8px;
+            width: 90px;
+            height: 45px;
+        }
+        
+        .pricing-layout {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 24px;
+        }
+        
+        .pricing-left {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            flex: 0 0 350px;
+        }
+        
+        .pricing-right {
+            display: flex;
+            gap: 24px;
+            flex: 1;
+        }
+        
+        .pricing-plans {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pricing-plan {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 32px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: none;
+        }
+        
+        .pricing-plan.featured {
+            background-color: #4A90E2;
+            color: white;
+            margin-top: -16px;
+            margin-bottom: -16px;
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .plan-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+            min-height: 60px;
+            text-align: center;
+        }
+        
+        .featured .plan-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .plan-price {
+            font-family: 'Manrope', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+        }
+        
+        .plan-price .period {
+            font-size: 16px;
+            font-weight: 400;
+            margin-left: 8px;
+            opacity: 0.7;
+        }
+        
+        .plan-cta {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 24px 0;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .plan-cta.primary {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+        }
+        
+        .plan-cta.secondary {
+            background-color: white;
+            color: #4A90E2;
+            border: 1px solid #4A90E2;
+        }
+        
+        .featured .plan-cta.primary {
+            background-color: white;
+            color: #4A90E2;
+        }
+        
+        .plan-features {
+            margin-top: 32px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+            line-height: 22px;
+        }
+
+        /* Special green checkmarks for Pro plan */
+        .pro-check {
+            background-color: #7ED321;
+            color: white;
+        }
+
+        /* Special styling for Plus plan icons */
+        .plus-check {
+            background-color: white;
+            color: #4A90E2;
+        }
+        
+        .plus-x {
+            background-color: rgba(255, 255, 255, 0.4);
+            color: white;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 64px 32px;
+            margin: 32px auto;
+            max-width: 1200px;
+            background-color: #fff;
+        }
+        
+        .testimonials-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 48px;
+            color: #4A4A4A;
+        }
+        
+        .testimonials-grid {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .testimonial-card {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+        
+        .testimonial-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 24px;
+            border-radius: 4px;
+            overflow: hidden;
+            max-height: 500px;
+        }
+        
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+        
+        .testimonial-quote {
+            padding: 0 0 16px 0;
+            position: relative;
+            color: #4A4A4A;
+            line-height: 1.5;
+            font-size: 18px;
+            margin-bottom: 16px;
+            font-style: normal;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .testimonial-quote p {
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            margin-top: 16px;
+            color: #4A4A4A;
+            font-style: normal;
+            font-size: 18px;
+        }
+        
+        .testimonial-company {
+            color: #9B9B9B;
+            font-style: normal;
+            font-size: 16px;
+            margin-top: 4px;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 1020px) {
+            .testimonials-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .testimonial-card {
+                width: 100%;
+            }
+        }
+
+        /* Contact Form Section */
+        .contact-section {
+            background-color: #fff;
+            padding: 64px 32px;
+            margin: 32px auto;
+            max-width: 1200px;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 64px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-heading {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #222;
+            line-height: 1.2;
+        }
+        
+        .contact-subheading {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .contact-form {
+            flex: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4A4A4A;
+            font-size: 16px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Fira Sans', sans-serif;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 160px;
+            resize: vertical;
+        }
+        
+        .select-wrapper {
+            position: relative;
+        }
+        
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #4A4A4A;
+            pointer-events: none;
+        }
+        
+        select.form-control {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 32px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #333;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                gap: 32px;
+            }
+            
+            .contact-info, .contact-form {
+                flex: 1;
+            }
+        }
+
+        /* Articles and Footer Section */
+        .articles-section {
+            padding: 64px 32px;
+            margin: 0 auto;
+            max-width: 1200px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .articles-heading {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #222;
+        }
+        
+        .articles-subheading {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 48px;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .article-card {
+            margin-bottom: 32px;
+        }
+        
+        .article-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #222;
+        }
+        
+        .article-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .footer-section {
+            background-color: #fff;
+            padding: 48px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #222;
+        }
+        
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links-list li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links-list a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links-list a:hover {
+            color: #4A90E2;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <a href="#">
+            <img src="../images/wk-logo.svg" alt="Wolters Kluwer Logo" class="logo">
+        </a>
+        <div class="nav-items">
+            <a href="#" class="nav-link">Tools</a>
+            <a href="#" class="nav-link">Pricing</a>
+            <a href="#" class="nav-link">Knowledge</a>
+            <a href="#" class="nav-link">Contact</a>
+            <button class="button button-secondary" id="navSignIn">Sign in</button>
+            <button class="button button-primary">Register</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">Ownity.</h1>
+        <h2 class="hero-subtitle">Everything for business owners.</h2>
+        <div class="cta-buttons">
+            <button class="button button-secondary" id="heroSignIn">Sign in</button>
+            <button class="button button-primary">Try for free</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-intro">
+            <h3 class="features-title">Simplify your small business management</h3>
+            <p class="features-description">Access company data, financial tools, and regulatory resources in one place.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><rect x="7" y="7" width="10" height="10" rx="1" /></svg>
+                </div>
+                <h4 class="feature-title">Everything gathered in one place</h4>
+                <p class="feature-description">Business information, finance, deadlines, and regulations – all in one platform.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16l4-4-4-4M8 12h8"/></svg>
+                </div>
+                <h4 class="feature-title">Designed for business owners</h4>
+                <p class="feature-description">Simple, relevant, and easy to use – all the features you require.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <h4 class="feature-title">Automatic reminders</h4>
+                <p class="feature-description">Checklists and notifications help you stay on track and avoid mistakes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section class="conclusion">
+        <p class="conclusion-text">Effectively reduces administrative burdens for small businesses, enables growth and innovation.</p>
+    </section>
+
+    <!-- Tools Showcase Section -->
+    <section class="tools-showcase">
+        <div class="tools-intro">
+            <h2 class="tools-title">Tools to boost your business.</h2>
+            <p class="tools-subtitle">Everything you need to stay in control and streamline your business.</p>
+        </div>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3 class="tool-title">Company calendar</h3>
+                <p class="tool-description">Stay ahead with a smart calendar that syncs your key dates – from tax submissions and payroll to inspections and internal meetings.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Business checklists</h3>
+                <p class="tool-description">Step-by-step guidance, from start to scale. Tailored to your business type and location, updated automatically when regulations change.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">My boardroom</h3>
+                <p class="tool-description">Secure, digital governance made simple. Keep your board minutes, company documents, shareholder agreements, and protocols in one safe place.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Licences & permits</h3>
+                <p class="tool-description">Track all your operational licences and permits with automated reminders for renewals, applications, and updates without the paperwork headaches.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Benchmark</h3>
+                <p class="tool-description">Compare your business performance with industry peers in real-time. From revenue and expenses to productivity and customer satisfaction.</p>
+            </div>
+            
+            <div class="tool-card">
+                <h3 class="tool-title">Regulations</h3>
+                <p class="tool-description">Get real-time updates on the laws and regulations that affect your business – all in plain language. Whether it's food safety, employment law, or tax changes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-header">
+            <h2 class="pricing-title">Powerful features for <span>powerful businesses</span></h2>
+            
+            <div class="pricing-toggle">
+                <span class="toggle-option">Pay Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="billingToggle">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-option">Pay Yearly</span>
+                <div class="save-tag">
+                    <svg width="95" height="48" viewBox="0 0 95 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M93.4465 43.5977C81.1574 46.6614 66.4839 47.2435 55.684 39.5062C48.7821 34.5616 45.1172 24.563 47.6965 16.4474C50.1326 8.78277 55.8213 2.04843 64.3458 2.25369C68.7891 2.36067 72.6203 4.40495 73.4291 9.08425C74.6649 16.2331 67.5332 23.6311 61.863 26.7407C44.1673 36.4454 19.1342 35.9054 2.27699 24.6409" stroke="#007AC3" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    Save 25%
+                </div>
+            </div>
+        </div>
+        
+        <div class="pricing-layout">
+            <div class="pricing-left">
+                <!-- Benchmark Plan -->
+                <div class="pricing-plan">
+                    <h3 class="plan-name">Benchmark</h3>
+                    <p class="plan-subtitle">Price per 12-month contract</p>
+                    
+                    <div class="plan-price">
+                        19:-<span class="period">/ Month</span>
+                    </div>
+                    
+                    <a href="#" class="plan-cta secondary">Get Started Now</a>
+                </div>
+                
+                <!-- Boardroom & Shareholders Plan -->
+                <div class="pricing-plan">
+                    <h3 class="plan-name">Boardroom & Shareholders</h3>
+                    <p class="plan-subtitle">Price per 12-month contract</p>
+                    
+                    <div class="plan-price">
+                        125:-<span class="period">/ Month</span>
+                    </div>
+                    
+                    <a href="#" class="plan-cta secondary">Get Started Now</a>
+                </div>
+                
+                <!-- Compliance Plan -->
+                <div class="pricing-plan">
+                    <h3 class="plan-name">Compliance</h3>
+                    <p class="plan-subtitle">Price per 12-month contract</p>
+                    
+                    <div class="plan-price">
+                        59:-<span class="period">/ Month</span>
+                    </div>
+                    
+                    <a href="#" class="plan-cta secondary">Get Started Now</a>
+                </div>
+            </div>
+            
+            <div class="pricing-right">
+                <!-- Plus Plan -->
+                <div class="pricing-plan featured">
+                    <h3 class="plan-name">Plus</h3>
+                    <p class="plan-description">Ideal for individuals who who need advanced features and tools for client work.</p>
+                    
+                    <div class="plan-price">
+                        99:-<span class="period">/ Month</span>
+                    </div>
+                    
+                    <a href="#" class="plan-cta primary">Get Started Now</a>
+                    
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Home</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Benchmark</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Company setup</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon excluded plus-x">✕</div>
+                            <span>Boardroom</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Compliance</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Legal & Permits</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included plus-check">✓</div>
+                            <span>Operations & Facility</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon excluded plus-x">✕</div>
+                            <span>Staff & Management</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon excluded plus-x">✕</div>
+                            <span>Shareholders</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon excluded plus-x">✕</div>
+                            <span>Trademarks & Patents</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon excluded plus-x">✕</div>
+                            <span>MySphere</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="pricing-plan">
+                    <h3 class="plan-name">Pro</h3>
+                    <p class="plan-description">Ideal for businesses who need personalized services and security for large teams.</p>
+                    
+                    <div class="plan-price">
+                        149:-<span class="period">/ Month</span>
+                    </div>
+                    
+                    <a href="#" class="plan-cta secondary">Get Started Now</a>
+                    
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Home</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Benchmark</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Company Setup</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Boardroom</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Compliance</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Legal & Permits</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Operations & Facility</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Staff & Management</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Shareholders</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>Trademarks & Patents</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon included pro-check">✓</div>
+                            <span>MySphere</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2 class="testimonials-title">What our customers say</h2>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-image">
+                    <img src="../images/anna.png" alt="Anna Svensson - Bakery Owner">
+                </div>
+                <div class="testimonial-quote">
+                    <p>All my administrative tasks are now streamlined, saving me time and stress. It's truly a game-changer for small business owners!</p>
+                    <div class="testimonial-author">Anna Svensson</div>
+                    <div class="testimonial-company">Delightful Donuts Bakery</div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-image">
+                    <img src="../images/lena.png" alt="Lena Nguyen - Pottery Store Owner">
+                </div>
+                <div class="testimonial-quote">
+                    <p>Ownity is a must-have for any small business owner! It handles all my administrative tasks efficiently, giving me more time to focus on my craft.</p>
+                    <div class="testimonial-author">Lena Nguyen</div>
+                    <div class="testimonial-company">Clay Creations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-heading">Let's connect and support your business</h2>
+                <p class="contact-subheading">We'd love to hear from you – reach out and we'll respond as soon as possible.</p>
+            </div>
+            
+            <div class="contact-form">
+                <form id="businessContactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service" class="form-label">What service are you interested in</label>
+                        <div class="select-wrapper">
+                            <select id="service" name="service" class="form-control" required>
+                                <option value="" disabled selected>Select project type</option>
+                                <option value="benchmark">Benchmark</option>
+                                <option value="compliance">Compliance</option>
+                                <option value="boardroom">Boardroom & Shareholders</option>
+                                <option value="legal">Legal & Permits</option>
+                                <option value="operations">Operations & Facility</option>
+                                <option value="staff">Staff & Management</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <h2 class="articles-heading">Articles</h2>
+            <a href="#" class="btn-text" style="display: flex; align-items: center; color: #4A90E2; font-size: 16px; font-weight: 500; text-decoration: none; margin-left: 16px;">
+                Read More <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </a>
+        </div>
+        <p class="articles-subheading">Everything important you need to know to run your business.</p>
+        
+        <div class="articles-grid">
+            <div class="article-card">
+                <h3 class="article-title">Important dates</h3>
+                <p class="article-text">All the important dates for you and your company throughout the year, including deadlines for the annual financial statement, quarterly tax payments, and the final date for submitting your tax return.</p>
+            </div>
+            
+            <div class="article-card">
+                <h3 class="article-title">File taxes</h3>
+                <p class="article-text">Everything you need to know for your income tax return. Summary of the key dates for this year's tax filing process, including deadlines for quarterly payments and final submissions. Stay informed and ensure timely submissions.</p>
+            </div>
+            
+            <div class="article-card">
+                <h3 class="article-title">Handle your bookkeeping</h3>
+                <p class="article-text">Preparing a financial statement can involve quite extensive work. Here is a five-step workflow to simplify your financial statement preparation. Following these steps will help ensure accuracy and efficiency in your financial reporting.</p>
+            </div>
+            
+            <div class="article-card">
+                <h3 class="article-title">Do I need an auditor?</h3>
+                <p class="article-text">When is an auditor required? For some companies, the law mandates having an auditor, but this requirement does not apply to all. Understand the obligations to ensure compliance and avoid potential issues.</p>
+            </div>
+            
+            <div class="article-card">
+                <h3 class="article-title">What tax rules apply?</h3>
+                <p class="article-text">In addition to corporate tax on the profit your company has made during the year, you may also need to pay VAT, property tax, and employer contributions. Understanding this is crucial for effective financial management.</p>
+            </div>
+            
+            <div class="article-card">
+                <h3 class="article-title">Important forms</h3>
+                <p class="article-text">Here you can download free templates and forms that are useful for your business. We have templates for vacation planning and leave of absence, among others. These resources are designed to help streamline your administrative tasks.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-grid">
+            <div class="social-media">
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Functions</h3>
+                    <ul class="footer-links-list">
+                        <li><a href="#">Checklists for your business</a></li>
+                        <li><a href="#">My business calendar</a></li>
+                        <li><a href="#">Supplier tracking</a></li>
+                        <li><a href="#">Risk analysis</a></li>
+                        <li><a href="#">Find accountants</a></li>
+                        <li><a href="#">My permits</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Knowledge</h3>
+                    <ul class="footer-links-list">
+                        <li><a href="#">Articles</a></li>
+                        <li><a href="#">Important dates</a></li>
+                        <li><a href="#">Find companies</a></li>
+                        <li><a href="#">Regulations & Compliance</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Authorities</h3>
+                    <ul class="footer-links-list">
+                        <li><a href="#">Bolagsverket</a></li>
+                        <li><a href="#">Skatteverket</a></li>
+                        <li><a href="#">Tillståndsmyndigheten</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h3 class="form-title">Sign in to Ownity</h3>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="user@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" value="password123" required>
+                </div>
+                <button type="submit" class="button button-primary form-button">Sign in</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('loginModal');
+        const navSignInBtn = document.getElementById('navSignIn');
+        const heroSignInBtn = document.getElementById('heroSignIn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const loginForm = document.getElementById('loginForm');
+
+        // Open modal when sign in button is clicked
+        navSignInBtn.addEventListener('click', openModal);
+        heroSignInBtn.addEventListener('click', openModal);
+
+        // Close modal when close button is clicked
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Handle form submission
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // Normally you would validate and authenticate here
+            // For this example, we'll just redirect to index.html
+            window.location.href = '../index.html';
+        });
+
+        function openModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Pricing toggle functionality
+        const billingToggle = document.getElementById('billingToggle');
+        const monthlyPrices = ['19:-', '99:-', '149:-', '125:-', '59:-'];
+        const yearlyPrices = ['171:-', '891:-', '1341:-', '1125:-', '531:-']; // 25% discount applied
+        const pricingElements = document.querySelectorAll('.plan-price');
+        const periodLabels = document.querySelectorAll('.period');
+
+        billingToggle.addEventListener('change', () => {
+            const isYearly = billingToggle.checked;
+            
+            pricingElements.forEach((element, index) => {
+                // Get the price text node (first child)
+                const priceNode = element.childNodes[0];
+                
+                // Update price
+                priceNode.nodeValue = isYearly ? yearlyPrices[index] : monthlyPrices[index];
+                
+                // Update period label
+                const periodLabel = element.querySelector('.period');
+                periodLabel.textContent = isYearly ? '/ Year' : '/ Month';
+            });
+        });
+    </script>
+</body>
+</html>

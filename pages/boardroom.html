@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boardroom - Web Prototype Mockup</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <style>
+    /* Remove font overrides to let the global styles apply */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Two-column layout */
+    .boardroom-layout {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    
+    .meetings-column {
+      flex: 1;
+      min-width: 0; /* Prevent overflow issues */
+    }
+    
+    .board-members-column {
+      width: 300px;
+      flex-shrink: 0;
+    }
+    
+    /* Meeting styles */
+    .meeting-section {
+      margin-bottom: 32px;
+    }
+    
+    .meeting-section h4 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #4A4A4A;
+      font-weight: 500;
+    }
+    
+    .meeting-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .meeting-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      overflow: hidden;
+    }
+    
+    .meeting-date-indicator {
+      background-color: #f5f5f5;
+      width: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0;
+      text-align: center;
+    }
+    
+    .meeting-date-indicator .month {
+      font-size: 14px;
+      color: #9B9B9B;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    
+    .meeting-date-indicator .day {
+      font-size: 24px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .meeting-details {
+      flex: 1;
+      padding: 16px;
+    }
+    
+    .meeting-header {
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .meeting-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #4A4A4A;
+      margin: 0;
+    }
+    
+    .meeting-content {
+      margin-bottom: 12px;
+      color: #4A4A4A;
+    }
+    
+    .meeting-participants {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .participant-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #ffffff;
+      overflow: hidden;
+    }
+    
+    .participant-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Board Member styles */
+    .board-member-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 24px;
+    }
+    
+    .board-member-section h4 {
+      font-size: 18px;
+      color: #4A4A4A;
+      font-weight: 500;
+    }
+    
+    .board-member-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .board-member-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 0;
+    }
+    
+    .board-member-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #ffffff;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    
+    .board-member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .board-member-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .board-member-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .board-member-role {
+      font-size: 14px;
+      color: #9B9B9B;
+      margin-bottom: 4px;
+    }
+    
+    .board-member-date {
+      font-size: 12px;
+      color: #9B9B9B;
+    }
+    
+    .board-status {
+      margin-top: 24px;
+      color: #9B9B9B;
+      font-size: 12px;
+    }
+    
+    /* Remove custom button styles and use the standard button classes from the design system */
+    .new-meeting-btn {
+      margin-bottom: 24px;
+    }
+    
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .modal {
+      width: 90%;
+      max-width: 700px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transform: translateY(-20px);
+      transition: all 0.3s ease;
+    }
+    
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid #EEEEEE;
+    }
+    
+    .modal-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #9B9B9B;
+    }
+    
+    .modal-body {
+      padding: 24px;
+    }
+    
+    /* Tab Styles */
+    .modal-tabs {
+      display: flex;
+      border-bottom: 1px solid #EEEEEE;
+      background-color: #F8F8F8;
+    }
+    
+    .modal-tab {
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #9B9B9B;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .modal-tab.active {
+      color: #4A90E2;
+    }
+    
+    .modal-tab.active:after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #4A90E2;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* Agenda Item Styles */
+    .agenda-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .agenda-wrapper {
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 16px;
+      border: 1px solid #EEEEEE;
+    }
+    
+    .agenda-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .agenda-list-item {
+      padding: 12px 8px;
+      border-bottom: 1px solid #EEEEEE;
+    }
+    
+    .agenda-list-item:last-child {
+      border-bottom: none;
+    }
+    
+    .agenda-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .agenda-item-text {
+      font-weight: 500;
+    }
+    
+    .agenda-item-attachments {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      padding-left: 0;
+    }
+    
+    .attachment {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #F8F8F8;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    
+    .attachment i {
+      color: #9B9B9B;
+    }
+    
+    .attachment i.fa-file-pdf {
+      color: #D0021B;
+    }
+    
+    .attachment i.fa-file-excel {
+      color: #7ED321;
+    }
+    
+    .attachment i.fa-file-word {
+      color: #4A90E2;
+    }
+    
+    .add-attachment-btn {
+      font-size: 13px;
+      color: #4A90E2;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      white-space: nowrap;
+      cursor: pointer;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .add-attachment-btn:hover {
+      background-color: rgba(74, 144, 226, 0.1);
+    }
+    
+    .btn-text {
+      font-size: 13px;
+      color: #4A90E2;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+      white-space: nowrap;
+      cursor: pointer;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .btn-text:hover {
+      background-color: rgba(74, 144, 226, 0.1);
+    }
+    
+    .agenda-actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    
+    /* Footer modifications */
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-top: 1px solid #EEEEEE;
+      background-color: #F8F8F8;
+    }
+    
+    .modal-footer-left {
+      flex: 1;
+    }
+    
+    .modal-footer-right {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .ai-transcription-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    
+    .ai-checkbox {
+      position: absolute;
+      opacity: 0;
+    }
+    
+    .ai-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .ai-label:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .ai-icon {
+      color: #4A90E2;
+    }
+    
+    .ai-text {
+      font-weight: 500;
+    }
+    
+    .ai-checkbox:checked + .ai-label .ai-icon {
+      color: #7ED321;
+    }
+    
+    .form-group {
+      margin-bottom: 24px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #DDDDDD;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: #4A90E2;
+      outline: none;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background-color: #F8F8F8;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .checkbox-label:hover {
+      background-color: #f0f0f0;
+    }
+    
+    .checkbox-label input {
+      margin: 0;
+    }
+    
+    .checkbox-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 4px;
+    }
+    
+    .checkbox-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .boardroom-layout {
+        flex-direction: column;
+      }
+      
+      .board-members-column {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 639px) {
+      .board-member-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+    
+    /* Finished meeting styles */
+    .finished-meeting {
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .finished-meeting:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    /* Improve contrast for the AI-transcribed badge */
+    .ai-transcribed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: white;
+      background-color: #4A90E2;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    
+    /* Improve contrast for the signed badge */
+    .signed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: white;
+      background-color: #7ED321;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+    
+    /* Style for signature section in modal */
+    .protocol-signature-status {
+      margin: 12px 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .protocol-signatures {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    
+    .signer-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #7ED321;
+    }
+    
+    .signer-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Meeting protocol modal styles */
+    .protocol-modal .modal {
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      max-height: 85vh; /* Limit maximum height */
+    }
+    
+    .protocol-modal .modal-body {
+      overflow-y: auto; /* Enable vertical scrolling */
+      padding: 0 24px; /* Reset side padding but keep modal-body's top/bottom padding */
+      flex: 1; /* Allow the body to expand */
+    }
+    
+    .protocol-modal .modal-header,
+    .protocol-modal .modal-footer {
+      flex-shrink: 0; /* Prevent header and footer from shrinking */
+    }
+    
+    /* Ensure the protocol content has proper spacing */
+    #protocolContent {
+      padding-right: 8px; /* Add space for scrollbar */
+    }
+    
+    /* Add smooth scrolling to the page */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .protocol-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .protocol-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #4A4A4A;
+    }
+    
+    .protocol-date {
+      font-size: 14px;
+      color: #9B9B9B;
+    }
+    
+    .protocol-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    
+    .protocol-attendees {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .protocol-attendees-title {
+      font-weight: 500;
+      color: #4A4A4A;
+      margin-bottom: 4px;
+    }
+    
+    .protocol-attendees-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .protocol-body {
+      margin-bottom: 24px;
+    }
+    
+    .protocol-section {
+      margin-bottom: 24px;
+    }
+    
+    .protocol-section-title {
+      font-weight: 500;
+      color: #4A4A4A;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .protocol-section-content {
+      color: #4A4A4A;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    
+    .protocol-divider {
+      border-top: 1px solid #EEEEEE;
+      margin: 24px 0;
+    }
+    
+    .user-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: #F5A623;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 13px;
+      margin: 0 4px;
+    }
+    
+    .user-tag .user-avatar {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    
+    .user-tag .user-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .task-item {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .task-item:before {
+      content: '•';
+      position: absolute;
+      left: 8px;
+    }
+    
+    /* Protocol Tasks Styling */
+    .protocol-tasks {
+      margin-top: 12px;
+    }
+    
+    .protocol-tasks-title {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #4A4A4A;
+    }
+    
+    .protocol-tasks-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .task-item {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .task-item:before {
+      content: '•';
+      position: absolute;
+      left: 8px;
+      color: #4A90E2;
+      font-size: 16px;
+    }
+    
+    /* Meeting status badges container */
+    .meeting-badges {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    
+    /* Add a container for the scrollable content */
+    .protocol-scroll-container {
+      padding: 4px 4px 4px 0; /* Add some padding for better readability */
+    }
+    
+    /* Add a subtle scrollbar style for modern browsers */
+    .protocol-modal .modal-body::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .protocol-modal .modal-body::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    
+    .protocol-modal .modal-body::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    
+    .protocol-modal .modal-body::-webkit-scrollbar-thumb:hover {
+      background: #a1a1a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Main Header -->
+    <header class="main-header">
+      <div class="main-header-logo">
+        <a href="landingpage.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+          <img src="../images/wk-logo.svg" alt="Wolters Kluwer Logo">
+          <span class="main-header-title">Ownity</span>
+        </a>
+      </div>
+      
+      <div class="main-header-actions">
+        <button class="btn btn-icon" aria-label="Help">
+          <i class="fas fa-question"></i>
+        </button>
+        <div class="notification-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <button class="btn btn-icon menu-grid" aria-label="Menu">
+          <i class="fas fa-th"></i>
+        </button>
+        <div class="user-profile">
+          <div class="user-info">
+            <span class="user-name">Hilary Ouse</span>
+            <span class="user-company">Fisch & Wurst</span>
+          </div>
+          <div class="user-avatar">HO</div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="content-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <nav class="sidebar-menu">
+          <div class="sidebar-menu-item">
+            <a href="../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item">
+            <a href="benchmark.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-chart-bar"></i>
+              <span>Benchmark</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item">
+            <a href="company-setup.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-building"></i>
+              <span>Company Setup</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item active">
+            <a href="boardroom.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-briefcase"></i>
+              <span>Boardroom</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item-with-submenu">
+            <a href="compliance.html" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-clipboard-check"></i>
+              <span>Compliance</span>
+            </a>
+            <i class="fas fa-chevron-down chevron"></i>
+            <div class="sidebar-submenu">
+              <div class="sidebar-submenu-item">
+                <a href="compliance-legal.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Legal & Permits</span>
+                </a>
+              </div>
+              <div class="sidebar-submenu-item">
+                <a href="compliance-operations.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Operations & Facility</span>
+                </a>
+              </div>
+              <div class="sidebar-submenu-item">
+                <a href="compliance-staff.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Staff & Management</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-menu-item">
+            <a href="shareholders.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-users"></i>
+              <span>Shareholders</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item">
+            <a href="trademark.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+              <i class="fas fa-trademark"></i>
+              <span>Trademark & Patents</span>
+            </a>
+          </div>
+          <div class="sidebar-menu-item-with-submenu">
+            <a href="my-sphere.html" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-globe"></i>
+              <span>My Sphere</span>
+            </a>
+            <i class="fas fa-chevron-down chevron"></i>
+            <div class="sidebar-submenu">
+              <div class="sidebar-submenu-item">
+                <a href="fisch-wurst.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Fisch & Wurst</span>
+                </a>
+              </div>
+              <div class="sidebar-submenu-item">
+                <a href="creek-stream.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Creek & Stream</span>
+                </a>
+              </div>
+              <div class="sidebar-submenu-item">
+                <a href="cork-screw.html" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                  <span>Cork & Screw</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </aside>
+      
+      <!-- Main Content -->
+      <main class="content-wrapper">
+        <div class="card">
+          <h3>Boardroom</h3>
+          
+          <div class="boardroom-layout">
+            <!-- Left Column - Meetings Section -->
+            <div class="meetings-column">
+              <!-- Create New Meeting Button -->
+              <button class="btn btn-primary new-meeting-btn" id="createMeetingBtn">
+                <i class="fas fa-plus"></i>
+                Create New Meeting
+              </button>
+              
+              <!-- Upcoming Meetings Section -->
+              <div class="meeting-section">
+                <h4>Upcoming Meetings</h4>
+                <div class="meeting-list">
+                  <!-- Meeting Card 1 -->
+                  <div class="meeting-card">
+                    <div class="meeting-date-indicator">
+                      <div class="month">APR</div>
+                      <div class="day">23</div>
+                    </div>
+                    <div class="meeting-details">
+                      <div class="meeting-header">
+                        <h4 class="meeting-title">Ordinary Boardmeeting</h4>
+                      </div>
+                      <div class="meeting-content">
+                        <p>New meeting . start meeting</p>
+                      </div>
+                      <div class="meeting-participants">
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="AA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="LS">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="KA">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Meeting Card 2 -->
+                  <div class="meeting-card">
+                    <div class="meeting-date-indicator">
+                      <div class="month">JAN</div>
+                      <div class="day">22</div>
+                    </div>
+                    <div class="meeting-details">
+                      <div class="meeting-header">
+                        <h4 class="meeting-title">Ordinary Boardmeeting</h4>
+                      </div>
+                      <div class="meeting-content">
+                        <p>Quarterly financial review and strategic planning</p>
+                      </div>
+                      <div class="meeting-participants">
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="AA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="LS">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="KA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="PP">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Meeting Card 3 -->
+                  <div class="meeting-card">
+                    <div class="meeting-date-indicator">
+                      <div class="month">NOV</div>
+                      <div class="day">15</div>
+                    </div>
+                    <div class="meeting-details">
+                      <div class="meeting-header">
+                        <h4 class="meeting-title">Extra Boardmeeting</h4>
+                      </div>
+                      <div class="meeting-content">
+                        <p>Budget approval for next fiscal year</p>
+                      </div>
+                      <div class="meeting-participants">
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="AA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="LS">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="KA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="PP">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" alt="KB">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Finished Meetings Section -->
+              <div class="meeting-section">
+                <h4>Finished Meetings</h4>
+                <div class="meeting-list">
+                  <!-- Finished Meeting Card 1 -->
+                  <div class="meeting-card finished-meeting" data-meeting-id="1">
+                    <div class="meeting-date-indicator">
+                      <div class="month">MAR</div>
+                      <div class="day">15</div>
+                    </div>
+                    <div class="meeting-details">
+                      <div class="meeting-header">
+                        <h4 class="meeting-title">Ordinary Boardmeeting</h4>
+                        <div class="meeting-badges">
+                          <span class="ai-transcribed-badge">
+                            <i class="fas fa-microphone-alt"></i> AI Transcribed
+                          </span>
+                          <span class="signed-badge">
+                            <i class="fas fa-signature"></i> SIGNED
+                          </span>
+                        </div>
+                      </div>
+                      <div class="meeting-content">
+                        <p>Q1 financial review and strategic planning</p>
+                      </div>
+                      <div class="meeting-participants">
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="AA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="LS">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="KA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="PP">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Finished Meeting Card 2 -->
+                  <div class="meeting-card finished-meeting" data-meeting-id="2">
+                    <div class="meeting-date-indicator">
+                      <div class="month">FEB</div>
+                      <div class="day">28</div>
+                    </div>
+                    <div class="meeting-details">
+                      <div class="meeting-header">
+                        <h4 class="meeting-title">Extra Boardmeeting</h4>
+                        <div class="meeting-badges">
+                          <span class="ai-transcribed-badge">
+                            <i class="fas fa-microphone-alt"></i> AI Transcribed
+                          </span>
+                          <span class="signed-badge">
+                            <i class="fas fa-signature"></i> SIGNED
+                          </span>
+                        </div>
+                      </div>
+                      <div class="meeting-content">
+                        <p>New product line approval and market strategy</p>
+                      </div>
+                      <div class="meeting-participants">
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="AA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="LS">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="KA">
+                        </div>
+                        <div class="participant-avatar">
+                          <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="PP">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Column - Board Members Section -->
+            <div class="board-members-column">
+              <div class="board-member-section">
+                <h4>Board Members</h4>
+                <div class="board-member-list">
+                  <!-- Board Member 1 -->
+                  <div class="board-member-row">
+                    <div class="board-member-avatar">
+                      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="Anna Andersson avatar">
+                    </div>
+                    <div class="board-member-info">
+                      <h4 class="board-member-name">Anna Andersson</h4>
+                      <div class="board-member-role">Chairman of the board</div>
+                      <div class="board-member-date">Since 2023-10-01</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Board Member 2 -->
+                  <div class="board-member-row">
+                    <div class="board-member-avatar">
+                      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="Lena Schmidt avatar">
+                    </div>
+                    <div class="board-member-info">
+                      <h4 class="board-member-name">Lena Schmidt</h4>
+                      <div class="board-member-role">Member of the board</div>
+                      <div class="board-member-date">Since 2023-10-01</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Board Member 3 -->
+                  <div class="board-member-row">
+                    <div class="board-member-avatar">
+                      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="Karen Andersson avatar">
+                    </div>
+                    <div class="board-member-info">
+                      <h4 class="board-member-name">Karen Andersson</h4>
+                      <div class="board-member-role">Member of the board</div>
+                      <div class="board-member-date">Since 2022-10-01</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Board Member 4 -->
+                  <div class="board-member-row">
+                    <div class="board-member-avatar">
+                      <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="Pelle Plupp avatar">
+                    </div>
+                    <div class="board-member-info">
+                      <h4 class="board-member-name">Pelle Plupp</h4>
+                      <div class="board-member-role">CEO</div>
+                      <div class="board-member-date">Since 2022-10-01</div>
+                    </div>
+                  </div>
+                  
+                  <!-- Board Member 5 -->
+                  <div class="board-member-row">
+                    <div class="board-member-avatar">
+                      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" alt="Kjell Brell avatar">
+                    </div>
+                    <div class="board-member-info">
+                      <h4 class="board-member-name">Kjell Brell</h4>
+                      <div class="board-member-role">Employee representative</div>
+                      <div class="board-member-date">Since 2022-10-01</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="board-status">
+                  <div class="board-status-text" style="margin-bottom: 16px;">
+                    Last updated from Bolagsverket 2025-04-30
+                  </div>
+                  <button class="btn btn-primary">Update Board</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Create Meeting Modal -->
+  <div class="modal-overlay" id="meetingModal">
+    <div class="modal" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Create New Meeting</h3>
+        <button class="btn btn-icon" id="closeModalBtn" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <!-- Modal Tabs -->
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="scheduleTab">Schedule Meeting</button>
+        <button class="modal-tab" data-tab="agendaTab">Meeting Agenda</button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="createMeetingForm">
+          <!-- Tab 1: Schedule Meeting -->
+          <div class="tab-content active" id="scheduleTab">
+            <div class="form-group">
+              <label class="form-label" for="meetingTitle">Meeting Title</label>
+              <input type="text" class="form-control" id="meetingTitle" placeholder="e.g. Quarterly Board Meeting">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="meetingDate">Date & Time</label>
+              <input type="datetime-local" class="form-control" id="meetingDate">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Participants</label>
+              <div class="checkbox-group" id="participantsList">
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <div class="checkbox-avatar">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" alt="Anna Andersson">
+                  </div>
+                  Anna Andersson
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <div class="checkbox-avatar">
+                    <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" alt="Lena Schmidt">
+                  </div>
+                  Lena Schmidt
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <div class="checkbox-avatar">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" alt="Karen Andersson">
+                  </div>
+                  Karen Andersson
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked>
+                  <div class="checkbox-avatar">
+                    <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="Pelle Plupp">
+                  </div>
+                  Pelle Plupp
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox">
+                  <div class="checkbox-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" alt="Kjell Brell">
+                  </div>
+                  Kjell Brell
+                </label>
+              </div>
+              
+              <!-- Add Participant Button -->
+              <button type="button" class="btn btn-secondary btn-sm add-participant-btn" id="addParticipantBtn" style="margin-top: 16px;">
+                <i class="fas fa-plus"></i> Add Participant
+              </button>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="meetingNotes">Notes (Optional)</label>
+              <textarea class="form-control" id="meetingNotes" rows="3" placeholder="Additional information about the meeting"></textarea>
+            </div>
+          </div>
+          
+          <!-- Tab 2: Meeting Agenda -->
+          <div class="tab-content" id="agendaTab">
+            <div class="form-group">
+              <div class="agenda-header">
+                <label class="form-label">Meeting Agenda</label>
+                <button type="button" class="btn btn-icon btn-sm" id="editAgendaBtn" title="Edit Agenda">
+                  <i class="fas fa-pen"></i>
+                </button>
+              </div>
+              <div class="agenda-wrapper">
+                <ol class="agenda-list">
+                  <li class="agenda-list-item">
+                    <div class="agenda-item-header">
+                      <div class="agenda-item-text">Go through notes from the last meeting</div>
+                      <button type="button" class="btn-text add-attachment-btn">
+                        <i class="fas fa-plus"></i> Add Document
+                      </button>
+                    </div>
+                    <div class="agenda-item-attachments">
+                      <div class="attachment">
+                        <i class="far fa-file-pdf"></i>
+                        <span>Previous_Minutes.pdf</span>
+                        <button type="button" class="btn btn-icon btn-sm" title="Remove">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="agenda-list-item">
+                    <div class="agenda-item-header">
+                      <div class="agenda-item-text">Financial update</div>
+                      <button type="button" class="btn-text add-attachment-btn">
+                        <i class="fas fa-plus"></i> Add Document
+                      </button>
+                    </div>
+                    <div class="agenda-item-attachments">
+                      <div class="attachment">
+                        <i class="far fa-file-excel"></i>
+                        <span>Q2_Financial_Report.xlsx</span>
+                        <button type="button" class="btn btn-icon btn-sm" title="Remove">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                      <div class="attachment">
+                        <i class="far fa-file-pdf"></i>
+                        <span>Budget_Forecast.pdf</span>
+                        <button type="button" class="btn btn-icon btn-sm" title="Remove">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="agenda-list-item">
+                    <div class="agenda-item-header">
+                      <div class="agenda-item-text">New business</div>
+                      <button type="button" class="btn-text add-attachment-btn">
+                        <i class="fas fa-plus"></i> Add Document
+                      </button>
+                    </div>
+                    <div class="agenda-item-attachments">
+                    </div>
+                  </li>
+                  <li class="agenda-list-item">
+                    <div class="agenda-item-header">
+                      <div class="agenda-item-text">Action items</div>
+                      <button type="button" class="btn-text add-attachment-btn">
+                        <i class="fas fa-plus"></i> Add Document
+                      </button>
+                    </div>
+                    <div class="agenda-item-attachments">
+                    </div>
+                  </li>
+                </ol>
+                <div class="agenda-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" id="addAgendaItemBtn">
+                    <i class="fas fa-plus"></i> Add Agenda Item
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Common Footer (Always visible) -->
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <div class="ai-transcription-wrapper">
+            <input type="checkbox" id="aiTranscription" class="ai-checkbox">
+            <label for="aiTranscription" class="ai-label">
+              <span class="ai-icon"><i class="fas fa-microphone-alt"></i></span>
+              <span class="ai-text">Enable AI transcription for this meeting</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer-right">
+          <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+          <button class="btn btn-primary" id="saveBtn">
+            <i class="fas fa-paper-plane"></i> Send Meeting Invitation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add Participant Modal -->
+  <div class="modal-overlay" id="addParticipantModal">
+    <div class="modal" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Add New Participant</h3>
+        <button class="btn btn-icon" id="closeParticipantModalBtn" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="participantName">Name</label>
+          <input type="text" class="form-control" id="participantName" placeholder="Enter participant name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="participantEmail">Email</label>
+          <input type="email" class="form-control" id="participantEmail" placeholder="Enter participant email">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelParticipantBtn">Cancel</button>
+        <button class="btn btn-primary" id="addParticipantConfirmBtn">Add Participant</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Meeting Protocol Modal -->
+  <div class="modal-overlay protocol-modal" id="protocolModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Meeting Protocol</h3>
+        <button class="btn btn-icon" id="closeProtocolModalBtn" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Protocol Content - Will be populated dynamically -->
+        <div id="protocolContent">
+          <!-- Template for protocol content -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelProtocolBtn">Close</button>
+        <button class="btn btn-primary" id="downloadProtocolBtn">
+          <i class="fas fa-download"></i> Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="../components/card.js"></script>
+  <script src="../js/main.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Modal elements
+      const meetingModal = document.getElementById('meetingModal');
+      const createBtn = document.getElementById('createMeetingBtn');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      
+      // Tab elements
+      const tabButtons = document.querySelectorAll('.modal-tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      // Participant modal elements
+      const addParticipantModal = document.getElementById('addParticipantModal');
+      const addParticipantBtn = document.getElementById('addParticipantBtn');
+      const closeParticipantModalBtn = document.getElementById('closeParticipantModalBtn');
+      const cancelParticipantBtn = document.getElementById('cancelParticipantBtn');
+      const addParticipantConfirmBtn = document.getElementById('addParticipantConfirmBtn');
+      
+      // Agenda elements
+      const addAgendaItemBtn = document.getElementById('addAgendaItemBtn');
+      const editAgendaBtn = document.getElementById('editAgendaBtn');
+      
+      // Protocol modal elements
+      const protocolModal = document.getElementById('protocolModal');
+      const closeProtocolModalBtn = document.getElementById('closeProtocolModalBtn');
+      const cancelProtocolBtn = document.getElementById('cancelProtocolBtn');
+      const downloadProtocolBtn = document.getElementById('downloadProtocolBtn');
+      const protocolContent = document.getElementById('protocolContent');
+      
+      // Sample protocol data
+      const protocols = {
+        1: {
+          title: "Ordinary Boardmeeting",
+          date: "March 15, 2025",
+          signed: true,
+          signedBy: "Anna Andersson",
+          signedDate: "March 16, 2025",
+          signers: [
+            { name: "Anna Andersson", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" },
+            { name: "Lena Schmidt", img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" },
+            { name: "Karen Andersson", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
+            { name: "Pelle Plupp", img: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" }
+          ],
+          attendees: [
+            { name: "Anna Andersson", role: "Chairman of the board", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" },
+            { name: "Lena Schmidt", role: "Member of the board", img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" },
+            { name: "Karen Andersson", role: "Member of the board", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
+            { name: "Pelle Plupp", role: "CEO", img: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" }
+          ],
+          sections: [
+            {
+              title: "1. Previous Minutes Review",
+              content: "The board reviewed minutes from the February meeting and approved them without changes. <span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop' alt='AA'></span> Anna</span> signed the minutes."
+            },
+            {
+              title: "2. Financial Update",
+              content: "Q1 financial performance was reviewed by <span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop' alt='PP'></span> Pelle</span>. Revenue is 5% above forecast at 24.3M SEK. Operating costs are in line with the budget. The board anticipates continued strong performance through Q2.",
+              tasks: [
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop' alt='PP'></span> Pelle</span> to prepare Q2 forecast by April 15th",
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop' alt='LS'></span> Lena</span> to review operating expenses for potential efficiency gains"
+              ]
+            },
+            {
+              title: "3. Strategic Planning",
+              content: "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop' alt='KA'></span> Karen</span> presented the updated 3-year business plan. Key focuses include expansion into new markets and development of the enterprise product line. The board requested additional market research on Asian market potential.",
+              tasks: [
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop' alt='KA'></span> Karen</span> to commission market research report by next meeting"
+              ]
+            },
+            {
+              title: "4. AOB and Next Meeting",
+              content: "No other business was discussed. Next meeting scheduled for April 23rd."
+            }
+          ]
+        },
+        2: {
+          title: "Extra Boardmeeting",
+          date: "February 28, 2025",
+          signed: true,
+          signedBy: "Anna Andersson",
+          signedDate: "February 28, 2025",
+          signers: [
+            { name: "Anna Andersson", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" },
+            { name: "Lena Schmidt", img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" },
+            { name: "Karen Andersson", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
+            { name: "Pelle Plupp", img: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" }
+          ],
+          attendees: [
+            { name: "Anna Andersson", role: "Chairman of the board", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop" },
+            { name: "Lena Schmidt", role: "Member of the board", img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop" },
+            { name: "Karen Andersson", role: "Member of the board", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop" },
+            { name: "Pelle Plupp", role: "CEO", img: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" }
+          ],
+          sections: [
+            {
+              title: "1. New Product Line Approval",
+              content: "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop' alt='PP'></span> Pelle</span> presented the business case for the new SaaS product line. The board unanimously approved the investment of 3.2M SEK for product development.",
+              tasks: [
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop' alt='PP'></span> Pelle</span> to prepare launch timeline by next board meeting"
+              ]
+            },
+            {
+              title: "2. Market Strategy",
+              content: "The board discussed go-to-market strategy for European expansion. <span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=150&auto=format&fit=crop' alt='LS'></span> Lena</span> suggested focusing on Germany and Benelux first before expanding to southern European markets.",
+              tasks: [
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop' alt='KA'></span> Karen</span> to develop market entry plan with country prioritization",
+                "<span class='user-tag'><span class='user-avatar'><img src='https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=150&auto=format&fit=crop' alt='AA'></span> Anna</span> to reach out to potential German partners"
+              ]
+            }
+          ]
+        }
+      };
+      
+      // Open meeting modal
+      createBtn.addEventListener('click', function() {
+        meetingModal.classList.add('active');
+      });
+      
+      // Close meeting modal
+      function closeMeetingModal() {
+        meetingModal.classList.remove('active');
+      }
+      
+      closeBtn.addEventListener('click', closeMeetingModal);
+      cancelBtn.addEventListener('click', closeMeetingModal);
+      
+      // Tab switching
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all tabs
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked tab
+          button.classList.add('active');
+          document.getElementById(button.dataset.tab).classList.add('active');
+        });
+      });
+      
+      // Open participant modal
+      addParticipantBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        addParticipantModal.classList.add('active');
+      });
+      
+      // Close participant modal
+      function closeParticipantModal() {
+        addParticipantModal.classList.remove('active');
+      }
+      
+      closeParticipantModalBtn.addEventListener('click', closeParticipantModal);
+      cancelParticipantBtn.addEventListener('click', closeParticipantModal);
+      
+      // Add participant
+      addParticipantConfirmBtn.addEventListener('click', function() {
+        const name = document.getElementById('participantName').value;
+        const email = document.getElementById('participantEmail').value;
+        
+        if (!name) {
+          alert('Please enter participant name');
+          return;
+        }
+        
+        // Create a random color for avatar background
+        const colors = ['#4A90E2', '#50E3C2', '#F5A623', '#9013FE', '#D0021B', '#7ED321'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Create new participant
+        const participantsList = document.getElementById('participantsList');
+        const newParticipant = document.createElement('label');
+        newParticipant.className = 'checkbox-label';
+        
+        // Create initials from name
+        const initials = name.split(' ').map(part => part[0]).join('');
+        
+        newParticipant.innerHTML = `
+          <input type="checkbox" checked>
+          <div class="checkbox-avatar" style="background-color: ${randomColor}; display: flex; align-items: center; justify-content: center; color: white;">
+            ${initials}
+          </div>
+          ${name}
+        `;
+        
+        participantsList.appendChild(newParticipant);
+        closeParticipantModal();
+        
+        // Reset the form
+        document.getElementById('participantName').value = '';
+        document.getElementById('participantEmail').value = '';
+      });
+      
+      // Add agenda item - Updated for new format
+      addAgendaItemBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const agendaList = document.querySelector('.agenda-list');
+        const newItem = document.createElement('li');
+        newItem.className = 'agenda-list-item';
+        newItem.innerHTML = `
+          <div class="agenda-item-header">
+            <div class="agenda-item-text">New agenda item</div>
+            <button type="button" class="btn-text add-attachment-btn">
+              <i class="fas fa-plus"></i> Add Document
+            </button>
+          </div>
+          <div class="agenda-item-attachments">
+          </div>
+        `;
+        agendaList.appendChild(newItem);
+        
+        // Add event listeners for the new item's buttons
+        setupAttachmentButtons(newItem);
+      });
+      
+      // Edit agenda button
+      editAgendaBtn.addEventListener('click', function() {
+        const agendaItems = document.querySelectorAll('.agenda-item-text');
+        
+        agendaItems.forEach(item => {
+          const text = item.textContent;
+          item.innerHTML = `<input type="text" class="form-control" value="${text}">`;
+        });
+        
+        // Add Save button
+        this.innerHTML = '<i class="fas fa-check"></i>';
+        this.title = 'Save Changes';
+        
+        // Change functionality to save
+        this.removeEventListener('click', arguments.callee);
+        this.addEventListener('click', function() {
+          const inputs = document.querySelectorAll('.agenda-item-text input');
+          
+          inputs.forEach(input => {
+            const text = input.value;
+            input.parentElement.innerHTML = text;
+          });
+          
+          // Reset button
+          this.innerHTML = '<i class="fas fa-pen"></i>';
+          this.title = 'Edit Agenda';
+          
+          // Reset event listener
+          this.removeEventListener('click', arguments.callee);
+          this.addEventListener('click', arguments.callee.caller);
+        });
+      });
+      
+      // Setup attachment buttons for initial items
+      document.querySelectorAll('.agenda-list-item').forEach(setupAttachmentButtons);
+      
+      function setupAttachmentButtons(item) {
+        const addAttachmentBtn = item.querySelector('.add-attachment-btn');
+        if (addAttachmentBtn) {
+          addAttachmentBtn.addEventListener('click', function() {
+            // Simulate file selection dialog
+            alert('File selection dialog would open here');
+            
+            // Create sample attachment (in real app, would be based on selected file)
+            const fileTypes = ['pdf', 'excel', 'word'];
+            const fileNames = ['Report.pdf', 'Data.xlsx', 'Document.docx'];
+            const randomIndex = Math.floor(Math.random() * fileTypes.length);
+            
+            const fileType = fileTypes[randomIndex];
+            const fileName = fileNames[randomIndex];
+            const iconClass = fileType === 'pdf' ? 'far fa-file-pdf' : 
+                             fileType === 'excel' ? 'far fa-file-excel' : 'far fa-file-word';
+            
+            const attachmentDiv = document.createElement('div');
+            attachmentDiv.className = 'attachment';
+            attachmentDiv.innerHTML = `
+              <i class="${iconClass}"></i>
+              <span>${fileName}</span>
+              <button type="button" class="btn btn-icon btn-sm" title="Remove">
+                <i class="fas fa-times"></i>
+              </button>
+            `;
+            
+            // Add to attachments container
+            const attachmentsContainer = item.querySelector('.agenda-item-attachments');
+            attachmentsContainer.appendChild(attachmentDiv);
+            
+            // Add event listener to remove button
+            const removeBtn = attachmentDiv.querySelector('button');
+            removeBtn.addEventListener('click', function() {
+              attachmentDiv.remove();
+            });
+          });
+        }
+        
+        // Add event listeners to existing remove buttons
+        item.querySelectorAll('.attachment button').forEach(btn => {
+          btn.addEventListener('click', function() {
+            this.closest('.attachment').remove();
+          });
+        });
+      }
+      
+      // Create meeting (demo functionality)
+      saveBtn.addEventListener('click', function() {
+        const title = document.getElementById('meetingTitle').value;
+        const date = document.getElementById('meetingDate').value;
+        const aiTranscription = document.getElementById('aiTranscription').checked;
+        
+        if (!title || !date) {
+          alert('Please fill in all required fields');
+          return;
+        }
+        
+        // Get all agenda items
+        const agendaItemTexts = Array.from(document.querySelectorAll('.agenda-item-text')).map(item => item.textContent || (item.querySelector('input') ? item.querySelector('input').value : ''));
+        
+        // Here you would normally send data to server
+        console.log({
+          title,
+          date,
+          aiTranscription,
+          agenda: agendaItemTexts
+        });
+        
+        alert('Meeting invitation sent successfully!');
+        closeMeetingModal();
+      });
+      
+      // Close modal when clicking outside
+      meetingModal.addEventListener('click', function(e) {
+        if (e.target === meetingModal) {
+          closeMeetingModal();
+        }
+      });
+      
+      addParticipantModal.addEventListener('click', function(e) {
+        if (e.target === addParticipantModal) {
+          closeParticipantModal();
+        }
+      });
+      
+      // Open protocol modal for finished meetings
+      document.querySelectorAll('.finished-meeting').forEach(meeting => {
+        meeting.addEventListener('click', function() {
+          const meetingId = this.dataset.meetingId;
+          const protocol = protocols[meetingId];
+          
+          if (protocol) {
+            // Populate protocol content
+            const html = `
+              <div class="protocol-scroll-container">
+                <div class="protocol-header">
+                  <h2 class="protocol-title">${protocol.title}</h2>
+                  <div class="protocol-date">${protocol.date}</div>
+                </div>
+                
+                ${protocol.signed ? `
+                <div class="protocol-signature-status">
+                  <div class="signed-badge" style="font-size: 14px; padding: 4px 12px;">
+                    <i class="fas fa-signature"></i> Digitally Signed
+                  </div>
+                  <div class="protocol-signatures">
+                    ${protocol.signers.map(signer => `
+                      <div class="signer-avatar" title="${signer.name} has signed">
+                        <img src="${signer.img}" alt="${signer.name}">
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+                ` : ''}
+                
+                <div class="protocol-meta">
+                  <div class="protocol-attendees">
+                    <div class="protocol-attendees-title">Attendees:</div>
+                    <div class="protocol-attendees-list">
+                      ${protocol.attendees.map(attendee => `
+                        <div class="participant-avatar" title="${attendee.name} - ${attendee.role}">
+                          <img src="${attendee.img}" alt="${attendee.name}">
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="protocol-body">
+                  ${protocol.sections.map(section => `
+                    <div class="protocol-section">
+                      <h3 class="protocol-section-title">${section.title}</h3>
+                      <div class="protocol-section-content">${section.content}</div>
+                      ${section.tasks ? `
+                        <div class="protocol-tasks">
+                          <div class="protocol-tasks-title">Actions:</div>
+                          <ul class="protocol-tasks-list">
+                            ${section.tasks.map(task => `<li class="task-item">${task}</li>`).join('')}
+                          </ul>
+                        </div>
+                      ` : ''}
+                    </div>
+                    <div class="protocol-divider"></div>
+                  `).join('')}
+                </div>
+                
+                <div class="protocol-footer">
+                  <p>Generated by AI Transcription - ${protocol.date}</p>
+                  ${protocol.signed ? `<p>Digitally signed by ${protocol.signedBy} (Chairman) on ${protocol.signedDate}</p>` : ''}
+                </div>
+              </div>
+            `;
+            
+            protocolContent.innerHTML = html;
+            protocolModal.classList.add('active');
+          }
+        });
+      });
+      
+      // Close protocol modal
+      function closeProtocolModal() {
+        protocolModal.classList.remove('active');
+      }
+      
+      closeProtocolModalBtn.addEventListener('click', closeProtocolModal);
+      cancelProtocolBtn.addEventListener('click', closeProtocolModal);
+      
+      // Close modal when clicking outside
+      protocolModal.addEventListener('click', function(e) {
+        if (e.target === protocolModal) {
+          closeProtocolModal();
+        }
+      });
+      
+      // Download protocol (demo functionality)
+      downloadProtocolBtn.addEventListener('click', function() {
+        alert('Protocol would be downloaded as PDF');
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Fira Sans', sans-serif;
+    }
+    .demo-container {
+      display: flex;
+      height: 100vh;
+    }
+    .content {
+      flex: 1;
+      padding: 24px;
+      background-color: #F5F7FA;
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    .sidebar-demo {
+      width: 100%;
+    }
+    .specs {
+      background: white;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .specs h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .specs ul {
+      padding-left: 20px;
+    }
+    .specs li {
+      margin-bottom: 8px;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <nav class="sidebar-menu">
+        <div class="sidebar-menu-item active">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </div>
+        <div class="sidebar-menu-item">
+          <i class="fas fa-chart-bar"></i>
+          <span>Benchmark</span>
+        </div>
+        <div class="sidebar-menu-item">
+          <i class="fas fa-folder"></i>
+          <span>Boardroom</span>
+        </div>
+        <div class="sidebar-menu-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </div>
+        <div class="sidebar-menu-item">
+          <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </div>
+        <div class="sidebar-menu-item">
+          <i class="fas fa-question-circle"></i>
+          <span>Help</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content">
+      <h1>Updated Sidebar Demo</h1>
+      
+      <div class="specs">
+        <h2>Sidebar Specifications</h2>
+        <ul>
+          <li>Width: 250px</li>
+          <li>Background: <code>#232323</code></li>
+          <li>Font size: 14px</li>
+          <li>Font weight: 400</li>
+          <li>Inactive item color: <code>#dadada</code></li>
+          <li>Active item background: <code>#007AC3</code></li>
+          <li>Hover background: <code>#474747</code></li>
+          <li>Hover effect: underlined text</li>
+        </ul>
+      </div>
+      
+      <p>The sidebar navigation has been updated according to the specifications. Try hovering over the menu items to see the hover effect.</p>
+      
+      <p>When an item is selected/active, it uses the same blue color as the primary button (<code>#007AC3</code>) and has white text.</p>
+      
+      <div class="sidebar-demo">
+        <h2>Navigation Item States</h2>
+        <p><strong>Default:</strong> Gray text (#dadada) on dark background (#232323)</p>
+        <p><strong>Hover:</strong> White text, underlined, with gray background (#474747)</p>
+        <p><strong>Active:</strong> White text on blue background (#007AC3)</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add click handler to demonstrate active state
+    document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.sidebar-menu-item').forEach(el => {
+          el.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,29 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="56" height="56" fill="white"/>
+<circle cx="28" cy="28" r="13" fill="#007AC3"/>
+<mask id="mask0_36_1730" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="15" y="15" width="26" height="26">
+<circle cx="28" cy="28" r="13" fill="white"/>
+</mask>
+<g mask="url(#mask0_36_1730)">
+<rect x="18.8237" y="18.8235" width="18.3529" height="18.3529" fill="#85BC20"/>
+<rect x="15" y="24.9412" width="26" height="6.11765" fill="#A6D1EA"/>
+<rect x="24.9414" y="24.9412" width="16.0588" height="6.11765" fill="#409BD2"/>
+<rect x="24.9414" y="15" width="6.11765" height="26" fill="#A6D1EA"/>
+<rect x="24.9414" y="24.9412" width="6.11765" height="16.0588" fill="#409BD2"/>
+<rect x="24.9414" y="24.9412" width="12.2353" height="12.2353" fill="#A4CD58"/>
+<rect x="18.8237" y="18.8235" width="12.2353" height="12.2353" fill="#D4E8B1"/>
+<rect x="15" y="15" width="9.94118" height="9.94118" fill="#409BD2"/>
+<rect x="24.9414" y="24.9412" width="6.11765" height="6.11765" fill="#E5202E"/>
+<rect x="18.8237" y="18.8235" width="6.11765" height="6.11765" fill="#A4CD58"/>
+<rect x="31.0586" y="31.0588" width="6.11765" height="6.11765" fill="#85BC20"/>
+</g>
+<g clip-path="url(#clip0_36_1730)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M38.9375 38.75H39.421C39.5195 38.75 39.606 38.7616 39.6691 38.7854C39.8725 38.8426 39.9718 38.991 39.9718 39.1613C39.9718 39.4023 39.7825 39.5269 39.606 39.5677V39.5746C39.7116 39.6256 39.8768 39.9225 40.0625 40.25H39.6996C39.4954 39.8939 39.3742 39.6583 39.3068 39.6529H39.253V40.25H38.9375V38.75ZM39.3288 39.4132C39.4911 39.4132 39.6336 39.3512 39.6336 39.1967C39.6336 39.1047 39.5925 39.0353 39.5082 39.0142C39.4614 38.9944 39.4096 38.991 39.3366 38.991H39.253V39.4132H39.3288Z" fill="#474747"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41 39.5C41 40.3283 40.3283 41 39.5 41C38.6717 41 38 40.3283 38 39.5C38 38.6717 38.6717 38 39.5 38C40.3283 38 41 38.6717 41 39.5ZM39.4993 38.316C38.8452 38.316 38.3153 38.8466 38.3153 39.5C38.3153 40.1534 38.8459 40.684 39.4993 40.684C40.1534 40.684 40.684 40.1534 40.684 39.5C40.684 38.8466 40.1534 38.316 39.4993 38.316Z" fill="#474747"/>
+</g>
+<defs>
+<clipPath id="clip0_36_1730">
+<rect width="3" height="3" fill="white" transform="translate(38 38)"/>
+</clipPath>
+</defs>
+</svg>

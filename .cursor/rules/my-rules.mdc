@@ -1,0 +1,68 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project: Web Prototype Mockup
+
+## Design System
+- Use a consistent color palette with primary colors: #4A90E2 (blue), #50E3C2 (teal), #F5A623 (orange)
+- Secondary colors: #9013FE (purple), #D0021B (red), #7ED321 (green)
+- Neutral colors: #F8F8F8 (light gray), #4A4A4A (dark gray), #9B9B9B (medium gray)
+- Typography: Primary font is 'FIra Sans', fallback to system sans-serif
+- Font sizes: Headings 24-32px, Body text 16px, Small text 14px
+- Spacing system uses multiples of 8px (8px, 16px, 24px, 32px, etc.)
+- Border-radius: 4px for small elements, 8px for cards, 16px for modals
+- Shadows: Light (0 2px 4px rgba(0,0,0,0.1)), Medium (0 4px 8px rgba(0,0,0,0.1)), Heavy (0 8px 16px rgba(0,0,0,0.1))
+
+## Component Guidelines
+- Buttons: Primary (filled blue), Secondary (outlined), Tertiary (text only)
+- Cards: White background, light shadow, 16px padding, 8px border radius
+- Forms: Labels above inputs, 8px spacing between label and input
+- Navigation: Sticky header with logo and main nav items
+- Modals: Centered, white background, 24px padding, close button in top right
+
+## Code Standards
+- Use vanilla HTML5, CSS, and JavaScript
+- Create reusable components through HTML templates or JS functions
+- Leverage third-party libraries when helpful (CDN preferred)
+- Mobile-first responsive design
+- Semantic HTML5 elements
+- Accessibility standards (WCAG 2.1 AA)
+- CSS custom properties for theming
+
+## Approved Third-Party Libraries
+- CSS: Bootstrap, Tailwind (via CDN), or Bulma for UI components
+- JS: Alpine.js for lightweight interactivity
+- Icons: Font Awesome or Google Material Icons
+- Utilities: lodash for helper functions
+- Animation: Animate.css for simple animations
+- Forms: FormValidation.io for input validation
+- HTTP: Axios or Fetch API for API calls
+
+## Component Reuse Strategy
+- Create a /components folder with HTML snippets for common elements
+- Use JavaScript templates or HTML imports to reuse components
+- Document components with example usage in comments
+- For repeated UI elements, create helper functions to generate HTML
+
+## Responsive Breakpoints
+- Mobile: 0-639px
+- Tablet: 640px-1023px 
+- Desktop: 1024px+
+
+## Project Structure
+- index.html: Main entry point
+- /css: Stylesheets (styles.css, normalize.css)
+- /js: JavaScript files and components
+- /components: Reusable HTML/JS components
+- /images: Image assets
+- /pages: Additional HTML pages (if needed)
+- /vendor: Third-party libraries (if not using CDN)
+
+## Prototype Goals
+- Focus on visual fidelity and user experience
+- Reuse components for consistency and efficiency
+- Leverage third-party libraries to accelerate development
+- Ensure responsive design works on all screen sizes
+- Balance simplicity with maintainability
